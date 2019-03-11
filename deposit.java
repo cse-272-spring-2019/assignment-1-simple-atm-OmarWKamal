@@ -3,6 +3,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -22,8 +23,10 @@ public class deposit{
 		this.stage = primaryStage;
 	}
 	public deposit() {
+		//SETTING SCENE
 		TextField deposition = new TextField();
 		Button depositButton = new Button("Deposit");
+		Label error = new Label();
 		Button one = new Button("1");
 		Button two = new Button("2");
 		Button three = new Button("3");
@@ -36,6 +39,7 @@ public class deposit{
 		Button zero = new Button("0");
 		Button clear = new Button("Clear");
 		Button remove = new Button("Remove");
+		Button back = new Button("Back");
 		GridPane depositpane = new GridPane();
 		depositpane.add(deposition, 0, 0);
 		depositpane.add(depositButton, 0, 1);
@@ -51,14 +55,24 @@ public class deposit{
 		depositpane.add(zero, 4, 6);
 		depositpane.add(clear, 8, 8);
 		depositpane.add(remove, 8, 11);
-		//add clear button and remove once char button
+		depositpane.add(back, 8, 14);
+		//END OF SCENE
 		
+		//add clear button and remove once char button and back button
 		remove.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {deposition.deleteText(deposition.getLength()-1, deposition.getLength());}});
 		clear.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {deposition.clear();}});
+		back.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				deposition.clear();
+				stage.setScene(menu.getScene());
+			}
+		});
+		
 		//NUMBER BUTTONS FUNCTIONS
 		zero.setOnAction(new EventHandler <ActionEvent>() {
 			@Override
@@ -97,9 +111,31 @@ public class deposit{
 			public void handle(ActionEvent arg0) {
 			//	Long amount = valueOf(deposition.getText());
 				String amount = deposition.getText();
-				user4.deposit(amount);
-				deposition.clear();
-				stage.setScene(menu.getScene());
+				//Long k = user4.valueOf(amount);
+				boolean flag = true;
+				//CHECK IF ITS A NUMBER
+				for(int i = 0; i < amount.length(); i++) {
+					if(flag == false) 
+						break;
+					if(amount.charAt(i) - '0' > 9)
+						flag = false;
+				}
+				
+				//IF THE INPUT IS NUMBER
+				if(flag == true) {
+					/*if(k >= upperbound) {
+						error.setText("Please enter an amount in range! :) "); 
+						
+					}*/
+					user4.deposit(amount);
+					deposition.clear();
+					stage.setScene(menu.getScene());
+				}
+				//IF ITS NOT
+				else {
+					error.setText("Please enter a valid number!");
+					depositpane.add(error, 15, 15);
+				}
 			}});
 		
 		depositScene = new Scene(depositpane, 800, 600);

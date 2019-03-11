@@ -14,7 +14,7 @@ public class Menu{
 	deposit dep;
 	Bankacc user3;
 	withdraw withdrawal;
-	public int j = 0;
+	public int j = -1;
 	
 	//INITIALIZATIONS
 	public void setWithdrawal(project1.withdraw withdrawal) {
@@ -58,8 +58,12 @@ public class Menu{
 		menu.add(deposit, 0,0);
 		menu.add(withdraw, 0,1);
 		menu.add(inquiry, 0,2);
+		menu.add(previous, 0,3);
+		menu.add(next, 0,4);
 		menu.add(logout, 0, 6);
 		menu.add(balanceLabel, 2, 8);
+		previous.setDisable(true);
+		next.setDisable(true);
 		menuScene  = new Scene(menu, 800, 600);
 		//END OF SCENE
 		
@@ -68,6 +72,7 @@ public class Menu{
 			@Override
 			public void handle(ActionEvent arg0) {
 			balanceLabel.setText("");
+			j = -1;
 			if(user3.getI() == -1) {
 				balanceLabel.setText("No balance to show");
 				menu.add(balanceLabel, 2, 8);
@@ -77,8 +82,8 @@ public class Menu{
 					balanceLabel.setText("Your balance is: " + user3.getBalance());
 				}
 			if(user3.getI() > -1) {
-				menu.add(previous, 0,3);
-				menu.add(next, 0,4);
+				previous.setDisable(false);
+				next.setDisable(false);
 			}
 			}});
 		logout.setOnAction(new EventHandler<ActionEvent>() {
@@ -105,12 +110,19 @@ public class Menu{
 				balanceLabel.setText("");
 				j++;
 				j = j%(user3.getI() + 1);
-				if(j >= 5)
-				{
+				j = j%5;
+				next.setDisable(false);
+				if(user3.getI() - j == 0 || j == 4) {
+					previous.setDisable(true);
+				}
+				else if(user3.getI() > j) {
+					previous.setDisable(false);
+				}
+				if(j >= 5){
 					balanceLabel.setText("Unaccessable");
 				}
 				else {
-				balanceLabel.setText(user3.history.get(user3.getI() - j + 1));
+					balanceLabel.setText(user3.history.get(user3.getI() - j));
 				}
 			}
 		});
@@ -121,6 +133,14 @@ public class Menu{
 				balanceLabel.setText("");
 				j--;
 				j = j%(user3.getI() + 1);
+				j = j%5;
+				previous.setDisable(false);
+				if(user3.getI() - Math.abs(j) == user3.getI()) {
+					next.setDisable(true);
+				}
+				else {
+					next.setDisable(false);
+				}
 				balanceLabel.setText(user3.history.get(user3.getI() - Math.abs(j)));
 			}
 		});

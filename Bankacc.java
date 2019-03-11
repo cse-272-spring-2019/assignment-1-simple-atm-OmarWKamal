@@ -11,7 +11,6 @@ public class Bankacc {
 	}
 	public void withdraw(String x)
 	{
-		
 		i++;
 		long g = valueOf(x);
 		this.balance = balance - g;
@@ -20,7 +19,6 @@ public class Bankacc {
 			//history.add(this.balance);
 		}
 		else {
-			history.remove(i);
 			history.add("Withdrawal of amount: " + x);
 			//history.add(this.balance);
 		}
@@ -30,13 +28,11 @@ public class Bankacc {
 		long g = valueOf(y);
 		this.balance = balance + g;
 		if(history.size() < 5) {
-			history.add(i,"Deposition of amount: " + y);
+			history.add("Deposition of amount: " + y);
 			//history.add(i,this.balance);
 		}
-
 		else {
-			history.remove(i);
-			history.add(i,"Deposition of amount: " + y);
+			history.add("Deposition of amount: " + y);
 			//history.add(this.balance);
 		}
 	}

@@ -38,6 +38,7 @@ public class withdraw{
 		Button zero = new Button("0");
 		Button clear = new Button("Clear");
 		Button remove = new Button("Remove");
+		Button back = new Button("Back");
 		Label error = new Label();
 		GridPane withdrawpane = new GridPane();
 		withdrawpane.add(withdrawal, 0, 0);
@@ -54,6 +55,7 @@ public class withdraw{
 		withdrawpane.add(zero, 4, 6);
 		withdrawpane.add(clear, 8, 8);
 		withdrawpane.add(remove, 8, 10);
+		withdrawpane.add(back, 8, 12);
 		//add clear button and remove once char button
 		
 		remove.setOnAction(new EventHandler<ActionEvent>() {
@@ -62,6 +64,15 @@ public class withdraw{
 		clear.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {withdrawal.clear();}});
+		back.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				withdrawal.clear();
+				stage.setScene(menu.getScene());
+			}
+		});
+	
+		
 		//NUMBER BUTTONS FUNCTIONS
 		zero.setOnAction(new EventHandler <ActionEvent>() {
 			@Override
@@ -100,15 +111,30 @@ public class withdraw{
 			public void handle(ActionEvent arg0) {
 				String amount = (withdrawal.getText());
 				long h = valueOf(amount);
-				if(h > user5.getBalance()) {
-					error.setText("Please Enter a valid amount");
+				boolean flag = true;
+				for(int i = 0; i < amount.length(); i++) {
+					if(flag == false)
+						break;
+					else {
+						if(amount.charAt(i) - '0' > 9)
+							flag = false;
+					}
+				}
+				if(flag == true) {
+					if(h > user5.getBalance()) {
+						error.setText("Please Enter a valid amount");
+						withdrawpane.add(error, 12, 12);
+					}
+					else {
+					user5.withdraw(amount);
+					withdrawal.clear();
+					stage.setScene(menu.getScene());
+				}}
+				else {
+					error.setText("Please enter a valid amount!");
 					withdrawpane.add(error, 12, 12);
 				}
-				else {
-				user5.withdraw(amount);
-				withdrawal.clear();
-				stage.setScene(menu.getScene());
-				}}});
+				}});
 		
 		withdrawScene = new Scene(withdrawpane, 800, 600);
 		
