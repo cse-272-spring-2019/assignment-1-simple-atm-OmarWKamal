@@ -11,14 +11,18 @@ public class GUI extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		primaryStage.setTitle("Login Form");
-	
+		primaryStage.setTitle("ATM");
+		
+		
+		//CREATING PROJECT OBJECTS
 		LoginForm loginform = new LoginForm();
 		Menu menu = new Menu();
 		deposit deposition = new deposit();
 		Bankacc user = new Bankacc();
 		withdraw withdrawal = new withdraw();
 		
+		
+		//SENDING OBJECTS TO CLASSES TO ACCESS METHODS AND ATTRIBUTES
 		loginform.setUser(user);
 		loginform.LoginScene();
 		menu.menuScene();

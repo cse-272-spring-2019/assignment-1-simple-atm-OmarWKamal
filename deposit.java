@@ -56,6 +56,7 @@ public class deposit{
 		depositpane.add(clear, 8, 8);
 		depositpane.add(remove, 8, 11);
 		depositpane.add(back, 8, 14);
+		depositpane.add(error, 15, 15);
 		//END OF SCENE
 		
 		//add clear button and remove once char button and back button
@@ -117,7 +118,7 @@ public class deposit{
 				for(int i = 0; i < amount.length(); i++) {
 					if(flag == false) 
 						break;
-					if(amount.charAt(i) - '0' > 9)
+					if(amount.charAt(i) - '0' > 9 || amount.charAt(i) - '0' < 0)
 						flag = false;
 				}
 				
@@ -134,7 +135,6 @@ public class deposit{
 				//IF ITS NOT
 				else {
 					error.setText("Please enter a valid number!");
-					depositpane.add(error, 15, 15);
 				}
 			}});
 		

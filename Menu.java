@@ -62,8 +62,11 @@ public class Menu{
 		menu.add(next, 0,4);
 		menu.add(logout, 0, 6);
 		menu.add(balanceLabel, 2, 8);
+		//SHOWING BUTTON WHEN INQUIRY BUTTON IS PRESSED
 		previous.setDisable(true);
 		next.setDisable(true);
+		
+		
 		menuScene  = new Scene(menu, 800, 600);
 		//END OF SCENE
 		
@@ -75,7 +78,6 @@ public class Menu{
 			j = -1;
 			if(user3.getI() == -1) {
 				balanceLabel.setText("No balance to show");
-				menu.add(balanceLabel, 2, 8);
 			}
 			else {
 					//balanceLabel.

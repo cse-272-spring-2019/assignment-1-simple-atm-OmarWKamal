@@ -116,7 +116,7 @@ public class withdraw{
 					if(flag == false)
 						break;
 					else {
-						if(amount.charAt(i) - '0' > 9)
+						if(amount.charAt(i) - '0' > 9 || amount.charAt(i) - '0' < 0)
 							flag = false;
 					}
 				}

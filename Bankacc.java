@@ -38,6 +38,11 @@ public class Bankacc {
 	}
 
 	public long getBalance() {
+		//SAVING IN HISTORY IF BALANCE IS NOT EQUAL ZERO
+		if(this.balance > 0) {
+			i++;
+			this.history.add("Balance Inquiry: " + this.balance);
+		}
 		return balance;
 	}
 

@@ -56,6 +56,7 @@ public class LoginForm{
 		login.setOnAction(new EventHandler <ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
+				//IF CORRECT GO TO MENU
 				String creditcard = creditcardnumber.getText();
 				String password = passwordField.getText();
 				boolean valid = validation.validate(creditcard, password);
@@ -64,6 +65,7 @@ public class LoginForm{
 					passwordField.clear();
 					stage.setScene(menu.getScene());
 				}
+				//ELSE PRINT ERROR 
 				else {
 					validationLabel.setText("Wrong password or username");
 					loginpane.add(validationLabel, 5, 5);
